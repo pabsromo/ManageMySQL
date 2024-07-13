@@ -3,7 +3,7 @@ version: '3.8'
 services:
   my-postgres:
     image: postgres:15
-    container_name: db
+    container_name: my-postgres
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
@@ -12,6 +12,9 @@ services:
       - '5432:5432'
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./custom_pg_hba.conf:/custom_pg_hba.conf
+      - ./entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh
+    entrypoint: [ "/docker-entrypoint-initdb.d/entrypoint.sh" ]
 
   web:
     build: .
