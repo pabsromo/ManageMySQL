@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="todo_create">
+    <h1>Create a New User</h1>
+    <form action="{% url 'user_create' %}" method="POST" autocomplete="off" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</div>
+{% endblock content %}

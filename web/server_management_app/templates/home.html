@@ -1,7 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="todo_create">
-    This is a test
-</div>
+<h1>Manage My Databases</h1>
+<h2>Users</h2>
+<button type="button"><a href="{% url 'user_create' %}">Create User</a></button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+{% for user in users %}
+<tr>
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">No Users Yet</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>Servers</h2>
+<button type="button"><a href="{% url 'server_create' %}">Create Server</a></button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>User</th>
+        <th>DBMS</th>
+    </tr>
+{% for server in servers %}
+<tr>
+    <td>{{ server.name }}</td>
+    <td>{{ server.user.name }}</td>
+    <td>{{ server.dbms }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">No Servers Yet</td>
+</tr>
+{% endfor %}
+</table>
 {% endblock content %}
