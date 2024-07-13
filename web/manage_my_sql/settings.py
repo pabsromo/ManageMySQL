@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "todo_app",  # TODO: Change this to the apps I am making
+    "server_management_app",
 ]
 
 MIDDLEWARE = [
