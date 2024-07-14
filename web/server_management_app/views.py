@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 
+from typing import Tuple
+
 import os
 import subprocess
+import paramiko
 
 from .models import Users
 from .models import Servers
@@ -9,10 +12,8 @@ from .models import Servers
 from .forms import UsersForm
 from .forms import ServersForm
 
-import paramiko
 
-
-def run_ssh_command(command):
+def run_ssh_command(command: str) -> Tuple[str, str]:
     hostname = "172.21.169.35"  # Replace with your WSL2 host IP address
     port = 22
     username = "pabromo"  # Replace with your WSL2 username
