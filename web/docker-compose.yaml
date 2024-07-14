@@ -23,6 +23,7 @@ services:
       - '8000:8000'
     volumes:
       - .:/app
+      - ./server_management_app/static:/app/static
       - django_ssh_keys:/root/.ssh
     environment:
       - DJANGO_ENV=${DJANGO_ENV}
@@ -31,6 +32,7 @@ services:
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
+      - DJANGO_LOG_LEVEL=INFO
     depends_on:
       - my-postgres
 

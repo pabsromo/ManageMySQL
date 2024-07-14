@@ -2,17 +2,28 @@
 
 {% block content %}
 <h1>Manage My Databases</h1>
-<h2>Users</h2>
-<button type="button"><a href="{% url 'user_create' %}">Create User</a></button>
+
+<div style="display: flex; align-items: center;">
+    <h2 style="margin-right: 10px;">Users</h2>
+    <button type="button" style="padding: 5px 10px;">
+        <a href="{% url 'user_create' %}" style="text-decoration: none; color: inherit;">Create User</a>
+    </button>
+</div>
 <table>
     <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Actions</th>
     </tr>
 {% for user in users %}
 <tr>
-    <td>{{ user.name }}</td>
+    <td>{{ user.user_name }}</td>
     <td>{{ user.email }}</td>
+    <td>
+        <button type="button" class="delete">
+            <a href="{% url 'user_delete' user.id %}">Delete User</a>
+        </button>
+    </td>
 </tr>
 {% empty %}
 <tr>
@@ -21,19 +32,59 @@
 {% endfor %}
 </table>
 
-<h2>Servers</h2>
-<button type="button"><a href="{% url 'server_create' %}">Create Server</a></button>
+<div style="display: flex; align-items: center;">
+    <h2 style="margin-right: 10px;">Images</h2>
+    <button type="button" style="padding: 5px 10px;">
+        <a href="{% url 'image_create' %}" style="text-decoration: none; color: inherit;">Create Image</a>
+    </button>
+    <button type="button" style="padding: 5px 10px; background-color: #AF7AC5;">
+        <a href="{% url 'image_update_list' %}" style="text-decoration: none; color: inherit;">Update Image List</a>
+    </button>
+</div>
 <table>
     <tr>
         <th>Name</th>
-        <th>User</th>
-        <th>DBMS</th>
+        <th>Tag</th>
+        <th>Hash</th>
+        <th>Actions</th>
+    </tr>
+{% for image in images %}
+<tr>
+    <td>{{ image.image_name }}</td>
+    <td>{{ image.tag }}</td>
+    <td>{{ image.image_hash }}</td>
+    <td>
+        <button type="button" class="delete">
+            <a href="{% url 'image_delete' image.id %}">Delete Image</a>
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="2">No Images Yet</td>
+</tr>
+{% endfor %}
+</table>
+
+<div style="display: flex; align-items: center;">
+    <h2 style="margin-right: 10px;">Database Servers</h2>
+    <button type="button" style="padding: 5px 10px;">
+        <a href="{% url 'server_create' %}" style="text-decoration: none; color: inherit;">Create Server</a>
+    </button>
+</div>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Port</th>
+        <th>Status</th>
     </tr>
 {% for server in servers %}
 <tr>
-    <td>{{ server.name }}</td>
-    <td>{{ server.user.name }}</td>
-    <td>{{ server.dbms }}</td>
+    <td>{{ server.container_name }}</td>
+    <td>{{ server.image.image_name }}</td>
+    <td>{{ server.port }}</td>
+    <td>{{ server.status }}</td>
 </tr>
 {% empty %}
 <tr>

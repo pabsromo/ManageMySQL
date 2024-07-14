@@ -1,6 +1,7 @@
 from django import forms
 from .models import Users
-from .models import Servers
+from .models import Images
+from .models import Containers
 
 
 class UsersForm(forms.ModelForm):
@@ -8,16 +9,26 @@ class UsersForm(forms.ModelForm):
 
     class Meta:
         model = Users
-        fields = ["name", "email"]
+        fields = ["user_name", "email"]
+
+
+class ImagesForm(forms.ModelForm):
+    tag = forms.CharField(initial="none")
+
+    class Meta:
+        model = Images
+        fields = ["image_name", "tag"]
 
 
 class ServersForm(forms.ModelForm):
     class Meta:
-        model = Servers
-        fields = ["name", "user", "dbms"]
+        model = Containers
+        fields = ["container_name", "image", "port"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Customize the user field queryset to show user names
-        self.fields["user"].queryset = Users.objects.all()
-        self.fields["user"].label_from_instance = lambda obj: f"{obj.name}"
+        # Customize the image field queryset to show images
+        self.fields["image"].queryset = Images.objects.all()
+        self.fields["image"].label_from_instance = (
+            lambda obj: f"{obj.image_name} {obj.tag}"
+        )
