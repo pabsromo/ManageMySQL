@@ -1,17 +1,58 @@
 from django.shortcuts import render, redirect
 
+import os
+import subprocess
+
 from .models import Users
 from .models import Servers
 
 from .forms import UsersForm
 from .forms import ServersForm
 
+import paramiko
+
+
+def run_ssh_command(command):
+    hostname = "172.21.169.35"  # Replace with your WSL2 host IP address
+    port = 22
+    username = "pabromo"  # Replace with your WSL2 username
+    key_filename = "/root/.ssh/id_rsa"
+
+    # Load the private key
+    private_key = paramiko.RSAKey.from_private_key_file(key_filename)
+
+    # Create an SSH client instance
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        # Connect to the SSH server using key-based authentication
+        ssh.connect(hostname, port, username, pkey=private_key)
+
+        # Execute the command
+        stdin, stdout, stderr = ssh.exec_command(command)
+        out = stdout.read().decode()
+        err = stderr.read().decode()
+
+        return out, err
+
+    finally:
+        # Ensure the SSH connection is closed
+        ssh.close()
+
 
 # Todo List View
 def home(request):
     users = Users.objects.all()
     servers = Servers.objects.all()
-    return render(request, "home.html", {"users": users, "servers": servers})
+
+    # First, let's print the current working directory
+    print("Current Working Directory", os.getcwd())
+    return render(
+        request,
+        "home.html",
+        {"users": users, "servers": servers, "hostname": run_ssh_command("hostname")},
+    )
 
 
 # Create Views

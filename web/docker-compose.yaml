@@ -23,6 +23,7 @@ services:
       - '8000:8000'
     volumes:
       - .:/app
+      - django_ssh_keys:/root/.ssh
     environment:
       - DJANGO_ENV=${DJANGO_ENV}
       - DATABASE_NAME=${DATABASE_NAME}
@@ -35,3 +36,4 @@ services:
 
 volumes:
   pg_data:
+  django_ssh_keys:
