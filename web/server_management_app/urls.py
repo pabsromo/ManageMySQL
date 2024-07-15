@@ -9,7 +9,9 @@ urlpatterns = [
     path("image_create", views.image_create, name="image_create"),
     path("user_delete/<int:user_id>", views.user_delete, name="user_delete"),
     path("image_delete/<int:image_id>", views.image_delete, name="image_delete"),
+    path("server_delete/<int:server_id>", views.server_delete, name="server_delete"),
     path("image_update_list", views.image_update_list, name="image_update_list"),
+    path("server_update_list", views.server_update_list, name="server_update_list"),
     # path("<int:pk>/update/", views.todo_update, name="todo_update"),
     # path("<int:pk>/delete/", views.todo_delete, name="todo_delete"),
 ]

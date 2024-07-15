@@ -71,6 +71,9 @@
     <button type="button" style="padding: 5px 10px;">
         <a href="{% url 'server_create' %}" style="text-decoration: none; color: inherit;">Create Server</a>
     </button>
+    <button type="button" style="padding: 5px 10px; background-color: #AF7AC5;">
+        <a href="{% url 'server_update_list' %}" style="text-decoration: none; color: inherit;">Update Server List</a>
+    </button>
 </div>
 <table>
     <tr>
@@ -78,6 +81,7 @@
         <th>Image</th>
         <th>Port</th>
         <th>Status</th>
+        <th>Actions</th>
     </tr>
 {% for server in servers %}
 <tr>
@@ -85,6 +89,11 @@
     <td>{{ server.image.image_name }}</td>
     <td>{{ server.port }}</td>
     <td>{{ server.status }}</td>
+    <td>
+        <button type="button" class="delete">
+            <a href="{% url 'server_delete' server.id %}">Delete Server</a>
+        </button>
+    </td>
 </tr>
 {% empty %}
 <tr>

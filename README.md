@@ -46,7 +46,7 @@ docker run -d \
   -e MYSQL_ROOT_PASSWORD=<password here> \
   -v <name>-data:/var/lib/mysql \
   -p <non-clashing port>:3306 \
-  mysql:8.0.19 --default-authentication-plugin=mysql_native_password
+  <image>:<image tag> --default-authentication-plugin=mysql_native_password
 ```
 ### Example:
 ```

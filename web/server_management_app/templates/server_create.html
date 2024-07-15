@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="todo_create">
-    <h1>Create a New User</h1>
+    <h1>Create a New Database</h1>
     <form action="{% url 'server_create' %}" method="POST" autocomplete="off" >
         {% csrf_token %}
         {{ form.as_p }}
